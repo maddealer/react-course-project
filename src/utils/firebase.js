@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+import { getFirestore, addDoc, collection } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDCnogFZsPvZT0myBztz7CnWM4ZMV9zD0A",
@@ -12,6 +18,51 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const auth = getAuth();
+const db = getFirestore();
 
-export { auth };
+const signUp = async (email, password, name) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    console.log(user);
+    await addDoc(collection(db, "users"), {
+      uid: user.uid,
+      email: user.email,
+      name,
+    });
+    signingOut();
+    return true;
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
+const signIn = async (email, password) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    return true;
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
+const signingOut = async () => {
+  try {
+    await signOut(auth);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export { auth, db, signUp, signIn, signingOut };
