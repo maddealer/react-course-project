@@ -29,8 +29,8 @@ const Register = () => {
       if (res.error) seterror(res.error);
     }
   };
-  if (!user) {
-    return <Navigate replace to="/login" />;
+  if (user) {
+    return <Navigate replace to="/dashboard" />;
   }
   return (
     <>
@@ -63,13 +63,12 @@ const Register = () => {
               required
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button type="submit">Submit</button>
+            <button type="submit">Register</button>
+            <span>
+              Already have an account?
+              <Link to="/login">Login</Link>
+            </span>
           </form>
-          <span>
-            Already have an account?
-            <Link to="/login">login</Link>
-          </span>
-          <button onClick={() => signingOut()}>Submit</button>
         </div>
       </div>
     </>

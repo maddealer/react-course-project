@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { signIn } from "../utils/firebase";
 import { useNavigate, Navigate } from "react-router-dom";
 import AuthContext from "../AuthContext";
+import { Link } from "react-router-dom";
 
 import "./forms.css";
 const Login = () => {
@@ -35,22 +36,32 @@ const Login = () => {
           <h1>Login</h1>
           {error ? <div className="auth__error">{error}</div> : null}
           <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="email"
-              value={email}
-              placeholder="Your Email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              type="password"
-              name="password"
-              value={password}
-              placeholder="Your Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <input type="submit" value="submit" />
+            <div className="formcontainer">
+              <div className="container">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="text"
+                  name="email"
+                  value={email}
+                  placeholder="Your Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  placeholder="Your Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button type="submit">Login</button>
+              </div>
+            </div>
           </form>
+          <span>
+            Don't have an account?
+            <Link to="/register">Register</Link>
+          </span>
         </div>
       </div>
     </>
