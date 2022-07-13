@@ -10,13 +10,13 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, seterror] = useState("");
+  const [error, setError] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     setEmail("");
     setPassword("");
     const res = await signIn(email, password);
-    if (res.error) seterror(res.error);
+    if (res.error) setError(res.error);
   };
   if (user) {
     return <Navigate replace to="/dashboard" />;
@@ -55,13 +55,13 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <button type="submit">Login</button>
+                <span>
+                  Don't have an account?
+                  <Link to="/register">Register</Link>
+                </span>
               </div>
             </div>
           </form>
-          <span>
-            Don't have an account?
-            <Link to="/register">Register</Link>
-          </span>
         </div>
       </div>
     </>

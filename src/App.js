@@ -8,6 +8,8 @@ import { AuthProvider } from "./AuthProvider";
 import { auth } from "./utils/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import Dashboard from "./components/Dashboard";
+import Claim from "./components/Claim";
+import Wheel1 from "./components/GiftWheel";
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -25,6 +27,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/claim" element={<Claim />} />
+            <Route path="/giftWheel" element={<Wheel1 />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

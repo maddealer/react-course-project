@@ -10,9 +10,9 @@ const Register = () => {
   console.log("inregister", user);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, seterror] = useState("");
-  const name = "ico";
 
   // useEffect(() => {
   //   setUser(useContext(AuthContext));
@@ -23,6 +23,7 @@ const Register = () => {
       seterror("Passwords do not match");
     } else {
       setEmail("");
+      setName("");
       setPassword("");
       const res = await signUp(email, password, name);
 
@@ -35,7 +36,6 @@ const Register = () => {
   return (
     <>
       <div
-        className="center"
         style={{
           display: "flex",
           height: "100vh",
@@ -47,27 +47,43 @@ const Register = () => {
           <h1>Register New User</h1>
           {error ? <div className="auth__error">{error}</div> : null}
           <form onSubmit={handleSubmit}>
-            <input
-              type="email"
-              name="email"
-              value={email}
-              placeholder="Your Email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              type="password"
-              name="password"
-              value={password}
-              placeholder="Your Password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button type="submit">Register</button>
-            <span>
-              Already have an account?
-              <Link to="/login">Login</Link>
-            </span>
+            <div className="formcontainer">
+              <div className="container">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={email}
+                  placeholder="Your Email"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  placeholder="Your Name"
+                  required
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  placeholder="Your Password"
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button type="submit">Register</button>
+                <span>
+                  Already have an account?
+                  <Link to="/login">Login</Link>
+                </span>
+              </div>
+            </div>
           </form>
         </div>
       </div>

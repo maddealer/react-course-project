@@ -19,7 +19,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-const db = getFirestore();
+const db = getFirestore(app);
 
 const signUp = async (email, password, name) => {
   try {
@@ -35,7 +35,7 @@ const signUp = async (email, password, name) => {
       email: user.email,
       name,
     });
-    signingOut();
+
     return true;
   } catch (error) {
     return { error: error.message };
