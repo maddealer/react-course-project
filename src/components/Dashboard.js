@@ -20,86 +20,12 @@ export default function Dashboard(props) {
     },
   });
   if (!user) {
-    return <Navigate replace to="/login" />;
+    return <Navigate replace to="/" />;
   }
   return (
     <>
-      <div className="main">
-        <ThemeProvider theme={theme}>
-          dash
-          <Fab
-            variant="extended"
-            size="small"
-            style={{ bottom: "5px", left: "1px", position: "absolute" }}
-            color="secondary"
-          >
-            <Link
-              to="/wheel-list"
-              style={{
-                display: "flex",
-                textDecoration: "none",
-                color: "#ffffff",
-                fontSize: "10px",
-                alignItems: "center",
-              }}
-            >
-              <ArrowBackIosIcon sx={{ fontSize: 20 }} />
-              go back
-            </Link>
-          </Fab>
-          <Fab
-            variant="extended"
-            size="small"
-            style={{ bottom: "5px", marginLeft: "auto", position: "absolute" }}
-            color="secondary"
-          >
-            <Link
-              to="/claim"
-              style={{
-                display: "flex",
-                textDecoration: "none",
-                color: "#ffffff",
-                fontSize: "10px",
-                alignItems: "center",
-              }}
-            >
-              claim
-            </Link>
-          </Fab>
-          <Fab
-            variant="extended"
-            size="small"
-            style={{
-              bottom: "5px",
-              marginLeft: "515px",
-              position: "absolute",
-            }}
-            color="secondary"
-          >
-            <Link
-              to="/giftWheel"
-              style={{
-                display: "flex",
-                textDecoration: "none",
-                color: "#ffffff",
-                fontSize: "10px",
-                alignItems: "center",
-              }}
-            >
-              giftWheel
-            </Link>
-          </Fab>
-          <Fab
-            variant="extended"
-            size="small"
-            style={{ bottom: "5px", right: "1px", position: "absolute" }}
-            color="secondary"
-            onClick={() => signingOut()}
-          >
-            {/* <ArrowBackIosIcon sx={{ fontSize: 20 }} /> */}
-            logout
-          </Fab>
-        </ThemeProvider>
+      <div>
+        <ThemeProvider theme={theme}>dash</ThemeProvider>
       </div>
     </>
   );
