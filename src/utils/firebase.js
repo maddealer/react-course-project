@@ -8,14 +8,22 @@ import {
 import { getFirestore, addDoc, collection } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDCnogFZsPvZT0myBztz7CnWM4ZMV9zD0A",
-  authDomain: "react-course-app-3db69.firebaseapp.com",
-  projectId: "react-course-app-3db69",
-  storageBucket: "react-course-app-3db69.appspot.com",
-  messagingSenderId: "315330963838",
-  appId: "1:315330963838:web:e7b9b412e7c751399e6b2f",
-  measurementId: "G-WHHXC10PCY",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
+
+// REACT_APP_FIREBASE_API_KEY = "AIzaSyDCnogFZsPvZT0myBztz7CnWM4ZMV9zD0A"
+// REACT_APP_FIREBASE_AUTH_DOMAIN = "react-course-app-3db69.firebaseapp.com"
+// REACT_APP_FIREBASE_PROJECT_ID = "react-course-app-3db69"
+// REACT_APP_FIREBASE_STORAGE_BUCKET = "react-course-app-3db69.appspot.com"
+// REACT_APP_FIREBASE_MESSAGING_SENDER_ID = "315330963838"
+// REACT_APP_FIREBASE_APP_ID = "1:315330963838:web:e7b9b412e7c751399e6b2f"
+// REACT_APP_FIREBASE_MEASUREMENT_ID = "G-WHHXC10PCY"
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
