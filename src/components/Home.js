@@ -108,7 +108,7 @@ export default function Home(props) {
               textAlign: "center",
             }}
           >
-            Check the last 10 prizes won by our players
+            Check the last 10 prizes won by Players in our Casino
           </p>
 
           <ul>
@@ -118,7 +118,9 @@ export default function Home(props) {
                   key={prize.createdAt}
                   style={{ color: "#393e40", fontWeight: "bold" }}
                 >
-                  {prize.email} Won a '{prize.gift.toUpperCase()}' at{" "}
+                  {prize.email.split("@")[0].charAt(0).toUpperCase() +
+                    prize.email.split("@")[0].slice(1)}{" "}
+                  Won a '{prize.gift.toUpperCase()}' at{" "}
                   {new Date(prize.createdAt).toLocaleTimeString("en-US")}
                 </li>
               );
