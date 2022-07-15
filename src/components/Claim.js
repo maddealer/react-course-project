@@ -59,6 +59,7 @@ export default function Claim(props) {
           name: "",
           congratulated: "",
           creator: user.email,
+          createdAt: Date.now(),
         });
 
         setAgreeGDPR(false);

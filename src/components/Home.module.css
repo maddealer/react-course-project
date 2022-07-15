@@ -1,0 +1,52 @@
+.home{
+    height: 200vh;
+    background-image: url(../images/bg-sea.webp);
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.welcome{
+   
+    font-size: 2em;
+    color:#fff;
+    margin-bottom:50px;
+    text-shadow: 1px 2px 1px rgb(0, 0, 0);
+    text-align: center;
+
+}
+.gwheel{
+    font-size: 1.8em;
+    color:#5e5e5e;
+    margin-bottom:30px;
+    text-shadow: 1px 2px 1px rgb(0, 0, 0);
+    text-align: center;
+
+}
+
+  ul li {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align: center;
+    list-style: none;
+    padding-left: 50px;
+    position: relative;
+    margin-bottom: 10px;
+
+  }
+  
+  ul li:before {
+    
+    content: "";
+    position: absolute;
+    left: 5px;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    background-size: contain;
+    background-image: url("../images/gift.png");
+  }
+    
