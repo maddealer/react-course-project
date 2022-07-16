@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useLocation, Navigate } from "react-router-dom";
+import { useLocation, Navigate, Link } from "react-router-dom";
 import "firebase/compat/auth";
 import { collection, addDoc } from "firebase/firestore";
-import "./forms.css";
+import styles from "./Login.module.css";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
 import { db } from "../utils/firebase";
@@ -95,80 +95,99 @@ export default function Claim(props) {
             <div
               style={{
                 display: "flex",
+                height: "100vh",
                 justifyContent: "center",
                 alignItems: "center",
-                alignContent: "center",
-                height: "70vh",
-                position: "relative",
               }}
             >
-              <div className="auth">
-                {" "}
-                <form>
-                  <h1>
-                    Apply for Gift <br />"{gift}"
-                  </h1>
-                  {error ? <div className="auth__error">{error}</div> : null}
-                  <div className="formcontainer">
-                    <hr />
-                    <div className="container">
-                      <label htmlFor="uname">
-                        <strong>Casino Card Number</strong>
-                      </label>
-                      <input
-                        type="text"
-                        autoComplete="off"
-                        placeholder="Casino Card Number"
-                        value={card ?? ""}
-                        name="uname"
-                        onChange={handleChangeCard}
-                        required
-                      />
-                      <label htmlFor="psw">
-                        <strong>Email</strong>
-                      </label>
-
-                      <input
-                        type="Email"
-                        autoComplete="off"
-                        placeholder="Enter Your Email"
-                        value={email ?? ""}
-                        name="psw"
-                        onChange={handleChangeEmail}
-                        required
-                      />
-                      <label htmlFor="phone">
-                        <strong>Phone Number Optional</strong>
-                      </label>
-                      <input
-                        type="text"
-                        autoComplete="off"
-                        placeholder="Phone Number Optional"
-                        value={phone}
-                        name="phone"
-                        onChange={handleChangePhone}
-                      />
-                    </div>
-                    <button type="submit" onClick={handleAddFormSubmit}>
-                      Claim
-                    </button>
-                    <div
-                      className="container"
-                      style={{ backgroundColor: "#eee" }}
+              <div className={styles.form}>
+                {error ? <div className="auth__error">{error}</div> : null}
+                <div
+                  style={{
+                    color: "#fff",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                    marginBottom: "15px",
+                  }}
+                >
+                  {" "}
+                  <h5 style={{ fontSize: "1.5em" }}>Apply for Gift</h5>
+                  <br /> <p style={{ fontSize: "1em" }}>"{gift}"</p>
+                </div>
+                <div className={styles["input-container ic1"]}>
+                  <label htmlFor="card" className={styles["placeholder"]}>
+                    Card Number
+                  </label>
+                  <input
+                    id="card  "
+                    value={card ?? ""}
+                    autoComplete="off"
+                    placeholder="Casino Card Number"
+                    className={styles.input}
+                    type="text"
+                    onChange={handleChangeCard}
+                    required
+                  />
+                </div>
+                <div className={styles["input-container ic2"]}>
+                  <label htmlFor="email" className={styles["placeholder"]}>
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    className={styles["input"]}
+                    type="email"
+                    autoComplete="off"
+                    placeholder="Enter Your Email"
+                    value={email ?? ""}
+                    onChange={handleChangeEmail}
+                    required
+                  />
+                </div>
+                <div className={styles["input-container ic1"]}>
+                  <label htmlFor="phone" className={styles["placeholder"]}>
+                    Phone Number
+                  </label>
+                  <input
+                    id="phone "
+                    type="text"
+                    autoComplete="off"
+                    placeholder="Phone Number Optional"
+                    value={phone}
+                    name="phone"
+                    onChange={handleChangePhone}
+                    className={styles.input}
+                  />
+                </div>
+                <div className={styles["input-container ic1"]}>
+                  <label style={{ paddingLeft: "15px" }}>
+                    <input
+                      type="checkbox"
+                      name="remember"
+                      value={agreeGDPR}
+                      checked={agreeGDPR}
+                      onChange={() => handleChangeCheck()}
+                    />{" "}
+                    <span style={{ color: "#fff" }}>Agree to </span>{" "}
+                    <Link
+                      to="#"
+                      style={{ color: "#147fa6", textDecoration: "none" }}
                     >
-                      <label style={{ paddingLeft: "15px" }}>
-                        <input
-                          type="checkbox"
-                          name="remember"
-                          value={agreeGDPR}
-                          checked={agreeGDPR}
-                          onChange={() => handleChangeCheck()}
-                        />{" "}
-                        “Agree to <a href="#"> Terms and Conditions </a>”
-                      </label>
-                    </div>
-                  </div>
-                </form>
+                      {" "}
+                      "Terms and Conditions"
+                    </Link>
+                  </label>
+                </div>
+                <button
+                  type="submit"
+                  className={styles["submit"]}
+                  onClick={handleAddFormSubmit}
+                >
+                  Claim
+                </button>
               </div>
             </div>
           </ThemeProvider>
