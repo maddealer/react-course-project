@@ -10,6 +10,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import Dashboard from "./components/Dashboard";
 import Claim from "./components/Claim";
 import Wheel1 from "./components/GiftWheel";
+import DataTable from "./components/DataTable";
 import Menu from "./Menu";
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -31,6 +32,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/claim" element={<Claim />} />
             <Route path="/gift-wheel" element={<Wheel1 />} />
+            <Route path="/data-table" element={<DataTable />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

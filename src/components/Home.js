@@ -28,7 +28,10 @@ export default function Home(props) {
   const claimsCollectionRef = collection(db, "claims");
 
   useEffect(() => {
-    const getClaims = async () => {
+    getClaims();
+  }, []);
+  const getClaims = async () => {
+    try {
       const q = query(
         claimsCollectionRef,
         orderBy("createdAt", "desc"),
@@ -37,11 +40,10 @@ export default function Home(props) {
       console.log(q);
       const data = await getDocs(q);
       setPrizes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-
-    getClaims();
-  }, []);
-
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const handleToggle = () => {
     setToggleWinners((state) => !state);
   };

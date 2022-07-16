@@ -44,7 +44,7 @@ export default function Menu(props) {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/data-base" onClick={() => handleChange()}>
+                    <Link to="/data-table" onClick={() => handleChange()}>
                       DB
                     </Link>
                   </li>
