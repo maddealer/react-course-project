@@ -13,15 +13,15 @@
     font-size: 2em;
     color:#fff;
     margin-bottom:50px;
-    text-shadow: 1px 2px 1px rgb(0, 0, 0);
+    text-shadow: 1px 2px 1px #00000050;
     text-align: center;
 
 }
 .gwheel{
     font-size: 1.8em;
-    color:#5e5e5e;
+    color:#3b3a39;
     margin-bottom:30px;
-    text-shadow: 1px 2px 1px rgb(0, 0, 0);
+    text-shadow: 1px 2px 1px #00000050;
     text-align: center;
 
 }

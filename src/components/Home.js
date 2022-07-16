@@ -1,19 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../AuthContext";
 import { Link } from "react-router-dom";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
 import { db } from "../utils/firebase";
-import {
-  collection,
-  getDocs,
-  doc,
-  query,
-  orderBy,
-  limit,
-} from "firebase/firestore";
+import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import styles from "./Home.module.css";
 export default function Home(props) {
   const theme = createTheme({
@@ -24,11 +17,14 @@ export default function Home(props) {
       primary: {
         main: "#239e6290",
       },
+      error: {
+        main: "#d19b1b90",
+      },
     },
   });
   const { user } = useContext(AuthContext);
   const [prizes, setPrizes] = useState([]);
-
+  const [toggleWinners, setToggleWinners] = useState(false);
   const claimsCollectionRef = collection(db, "claims");
 
   useEffect(() => {
@@ -46,6 +42,10 @@ export default function Home(props) {
     getClaims();
   }, []);
 
+  const handleToggle = () => {
+    setToggleWinners((state) => !state);
+  };
+
   if (user) {
     return <Navigate replace to="/dashboard" />;
   }
@@ -62,7 +62,7 @@ export default function Home(props) {
             }}
           >
             <h3 className={styles.welcome}>Welcome to Sunny Beach Casino</h3>
-            <h4 className={styles.gwheel}>Gift Wheel</h4>
+            <h4 className={styles.gwheel}>GIFT WHEEL</h4>
           </div>
           <br />
           <Link
@@ -110,22 +110,42 @@ export default function Home(props) {
           >
             Check the last 10 prizes won by Players in our Casino
           </p>
-
-          <ul>
-            {prizes.map((prize) => {
-              return (
-                <li
-                  key={prize.createdAt}
-                  style={{ color: "#393e40", fontWeight: "bold" }}
-                >
-                  {prize.email.split("@")[0].charAt(0).toUpperCase() +
-                    prize.email.split("@")[0].slice(1)}{" "}
-                  Won a '{prize.gift.toUpperCase()}' at{" "}
-                  {new Date(prize.createdAt).toLocaleTimeString("en-US")}
-                </li>
-              );
-            })}
-          </ul>
+          <Link
+            to="#"
+            style={{
+              textDecoration: "none",
+              width: "200px",
+              marginBottom: "50px",
+            }}
+            onClick={handleToggle}
+          >
+            <Button
+              style={{ position: "inherit", fontWeight: "bold" }}
+              variant="contained"
+              fullWidth={true}
+              color="error"
+            >
+              Winners
+            </Button>
+          </Link>
+          {!toggleWinners ? null : (
+            <ul>
+              {prizes.map((prize) => {
+                return (
+                  <li
+                    key={prize.createdAt}
+                    style={{ color: "#393e40", fontWeight: "bold" }}
+                  >
+                    {prize.email.split("@")[0].charAt(0).toUpperCase() +
+                      prize.email.split("@")[0].slice(1)}{" "}
+                    Won a '{prize.gift.toUpperCase()}' at{" "}
+                    {new Date(prize.createdAt).toLocaleTimeString("en-US")} on{" "}
+                    {new Date(prize.createdAt).toLocaleDateString("en-US")}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
       </ThemeProvider>
     </>
