@@ -20,6 +20,7 @@ export default function Claim(props) {
   const [phone, setPhone] = useState("");
   const [agreeGDPR, setAgreeGDPR] = useState(false);
   const [error, setError] = useState("");
+  const [redirect, setRedirect] = useState(false);
   let giftNew = "no gift";
   useEffect(() => {
     if (user && location.state) {
@@ -66,6 +67,7 @@ export default function Claim(props) {
         setCard("");
         setEmail("");
         setPhone("");
+        setRedirect(true);
       } catch (err) {
         console.log(err);
         setError("Something went wrong!");
@@ -85,6 +87,9 @@ export default function Claim(props) {
 
   if (!user) {
     return <Navigate replace to="/" />;
+  }
+  if (redirect) {
+    return <Navigate replace to="/dashboard" />;
   }
 
   return (

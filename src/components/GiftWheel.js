@@ -94,7 +94,7 @@ function Wheel1() {
               color: "#fff",
             }}
           >
-            Platinum Gift Wheel
+            Casino Gift Wheel
           </h1>
           <Wheel
             mustStartSpinning={mustSpin}
@@ -200,7 +200,7 @@ function Wheel1() {
                 <h1
                   style={{
                     marginTop: "15px",
-                    fontSize: "1.5em",
+                    fontSize: "1em",
                   }}
                 >
                   Congratulations YOU WON <br /> "{data[prizeNumber].option}"
@@ -212,7 +212,7 @@ function Wheel1() {
                 >
                   <Button
                     style={{
-                      fontSize: "1.2em",
+                      fontSize: "1em",
                       color: "#fff",
                     }}
                     className="claimBlink"

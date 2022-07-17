@@ -12,13 +12,13 @@ export default function Home(props) {
   const theme = createTheme({
     palette: {
       secondary: {
-        main: "#34c6eb90",
+        main: "#FAE4EA95",
       },
       primary: {
-        main: "#239e6290",
+        main: "#5392A095",
       },
       error: {
-        main: "#d19b1b90",
+        main: "#FAAA8C95",
       },
     },
   });
@@ -61,57 +61,68 @@ export default function Home(props) {
               justifyContent: "center",
               alignItems: "center",
               flexDirection: "column",
+              height: "70vh",
+              marginTop: "50px",
             }}
           >
-            <h3 className={styles.welcome}>Welcome to Sunny Beach Casino</h3>
-            <h4 className={styles.gwheel}>GIFT WHEEL</h4>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <h3 className={styles.welcome}>Welcome to Sunny Beach Casino</h3>
+              <h4 className={styles.gwheel}>GIFT WHEEL</h4>
+            </div>
+            <br />
+            <Link
+              to="/login"
+              style={{
+                textDecoration: "none",
+                width: "200px",
+              }}
+            >
+              <Button
+                style={{ position: "inherit", fontWeight: "bold" }}
+                variant="contained"
+                fullWidth={true}
+                color="primary"
+              >
+                Login
+              </Button>
+            </Link>
+            <br />
+            <Link
+              to="/register"
+              style={{
+                textDecoration: "none",
+                width: "200px",
+                marginBottom: "50px",
+              }}
+            >
+              <Button
+                style={{ position: "inherit", fontWeight: "bold" }}
+                variant="contained"
+                fullWidth={true}
+                color="secondary"
+              >
+                Register
+              </Button>
+            </Link>
+            <p
+              style={{
+                marginBottom: "50px",
+                fontSize: "1.5em",
+                fontWeight: "bold",
+                color: "#113340",
+                textAlign: "center",
+              }}
+            >
+              Check the last 10 prizes won by Players in our Casino
+            </p>
           </div>
-          <br />
-          <Link
-            to="/login"
-            style={{
-              textDecoration: "none",
-              width: "200px",
-            }}
-          >
-            <Button
-              style={{ position: "inherit", fontWeight: "bold" }}
-              variant="contained"
-              fullWidth={true}
-              color="primary"
-            >
-              Login
-            </Button>
-          </Link>
-          <br />
-          <Link
-            to="/register"
-            style={{
-              textDecoration: "none",
-              width: "200px",
-              marginBottom: "50px",
-            }}
-          >
-            <Button
-              style={{ position: "inherit", fontWeight: "bold" }}
-              variant="contained"
-              fullWidth={true}
-              color="secondary"
-            >
-              Register
-            </Button>
-          </Link>
-          <p
-            style={{
-              marginBottom: "50px",
-              fontSize: "1.5em",
-              fontWeight: "bold",
-              color: "#113340",
-              textAlign: "center",
-            }}
-          >
-            Check the last 10 prizes won by Players in our Casino
-          </p>
           <Link
             to="#"
             style={{
