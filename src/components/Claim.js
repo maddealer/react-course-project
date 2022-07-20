@@ -21,12 +21,10 @@ export default function Claim(props) {
   const [agreeGDPR, setAgreeGDPR] = useState(false);
   const [error, setError] = useState("");
   const [redirect, setRedirect] = useState(false);
-  let giftNew = "no gift";
   useEffect(() => {
     if (user && location.state) {
-      giftNew = location.state.gift;
       console.log("user", user.email);
-      setGift(giftNew);
+      setGift(location.state.gift);
       return;
     }
     setGift("no gift");

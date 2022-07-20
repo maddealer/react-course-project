@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../AuthContext";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import Button from "@mui/material/Button";
-import { createTheme } from "@mui/material/styles";
-import { ThemeProvider } from "@emotion/react";
 import { db } from "../utils/firebase";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import EditIcon from "@mui/icons-material/Edit";
+import DoneIcon from "@mui/icons-material/Done";
 import {
   collection,
   getDocs,
@@ -27,7 +27,8 @@ export default function DataTable(props) {
 
   useEffect(() => {
     getAllGifts();
-  }, []);
+    return () => {};
+  }, [user]);
 
   const getAllGifts = async () => {
     try {
@@ -43,66 +44,96 @@ export default function DataTable(props) {
     }
   };
 
-  if (!user) {
-    return <Navigate replace to="/" />;
-  }
+  const deleteClaim = async (id) => {
+    try {
+      const claimsDoc = doc(db, "claims", id);
+      await deleteDoc(claimsDoc);
+      getAllGifts();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const updateClaimCongrad = async (id) => {
+    const claimDoc = doc(db, "claims", id);
+    const newFields = { congratulated: true };
+    await updateDoc(claimDoc, newFields);
+    getAllGifts();
+  };
+  // if (!user) {
+  //   return <Navigate replace to="/dashboard" />;
+  // }
   return (
     <>
-      <h2>Players DataBase</h2>
-      <div class={styles["table-wrapper"]}>
-        <table class={styles["fl-table"]}>
-          <thead>
-            <tr>
-              <th>Email</th>
-              <th>Gift</th>
-              <th>Created At</th>
-              <th>Congratulated</th>
-              <th>Name</th>
-              <th>actions</th>
-            </tr>
-          </thead>
-
-          {data.length > 0 ? (
-            <tbody>
-              {" "}
-              {data.map((el) => (
-                <tr
-                  style={{
-                    backgroundColor:
-                      el.creator === user.email ? "#ccc" : "#cca",
-                  }}
-                >
-                  <td>{el.email}</td>
-                  <td>{el.gift}</td>
-                  <td>
-                    {" "}
-                    {new Date(el.createdAt).toLocaleTimeString("en-US")} on{" "}
-                    {new Date(el.createdAt).toLocaleDateString("en-US")}
-                  </td>
-                  <td>
-                    {el.congratulated === "" ? (
-                      <input type="checkbox"></input>
-                    ) : (
-                      "congratulated"
-                    )}
-                  </td>
-                  <td>{el.name}</td>
-                  <td>button</td>{" "}
+      {user ? (
+        <>
+          {" "}
+          <h2>Players DataBase</h2>
+          <div className={styles["table-wrapper"]}>
+            <table className={styles["fl-table"]}>
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Gift</th>
+                  <th>Created At</th>
+                  <th>Congratulated</th>
+                  <th>Player Name</th>
+                  <th>actions</th>
                 </tr>
-              ))}
-            </tbody>
-          ) : null}
+              </thead>
 
-          {/* <tr>
-              <td>Content 10</td>
-              <td>Content 10</td>
-              <td>Content 10</td>
-              <td>Content 10</td>
-              <td>Content 10</td>
-              <td>Content 10</td>
-            </tr> */}
-        </table>
-      </div>
+              {data.length > 0 ? (
+                <tbody>
+                  {data.map((el) => (
+                    <tr key={el.id}>
+                      <td>{el.email}</td>
+                      <td>{el.gift}</td>
+                      <td>
+                        {new Date(el.createdAt).toLocaleTimeString("en-US")} on{" "}
+                        {new Date(el.createdAt).toLocaleDateString("en-US")}
+                      </td>
+                      <td>
+                        {el.congratulated !== true ? (
+                          <input
+                            type="checkbox"
+                            onClick={() => {
+                              updateClaimCongrad(el.id);
+                            }}
+                          ></input>
+                        ) : (
+                          <span style={{ color: "green" }}>
+                            <DoneIcon />
+                          </span>
+                        )}
+                      </td>
+                      <td>{el.name}</td>
+                      <td>
+                        {el.creator === user.email ? (
+                          <>
+                            <DeleteForeverIcon
+                              onClick={() => {
+                                deleteClaim(el.id);
+                              }}
+                            />
+                            <Link
+                              to="/edit-claim"
+                              state={{ claimId: el.id }}
+                              style={{ color: "#f76c0f" }}
+                            >
+                              <EditIcon />
+                            </Link>
+                          </>
+                        ) : null}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              ) : null}
+            </table>
+          </div>
+        </>
+      ) : (
+        <Link to="/login">Login first please</Link>
+      )}
     </>
   );
 }

@@ -12,6 +12,7 @@ import Claim from "./components/Claim";
 import Wheel1 from "./components/GiftWheel";
 import DataTable from "./components/DataTable";
 import Menu from "./Menu";
+import EditClaim from "./components/EditClaim";
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -33,6 +34,7 @@ function App() {
             <Route path="/claim" element={<Claim />} />
             <Route path="/gift-wheel" element={<Wheel1 />} />
             <Route path="/data-table" element={<DataTable />} />
+            <Route path="/edit-claim" element={<EditClaim />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

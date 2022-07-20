@@ -29,6 +29,7 @@ export default function Home(props) {
 
   useEffect(() => {
     getClaims();
+    return () => {};
   }, []);
   const getClaims = async () => {
     try {
