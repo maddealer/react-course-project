@@ -63,7 +63,7 @@ export default function Home(props) {
               alignItems: "center",
               flexDirection: "column",
               height: "70vh",
-              marginTop: "50px",
+              marginTop: "40px",
             }}
           >
             <div
@@ -74,8 +74,12 @@ export default function Home(props) {
                 flexDirection: "column",
               }}
             >
-              <h3 className={styles.welcome}>Welcome to Sunny Beach Casino</h3>
-              <h4 className={styles.gwheel}>GIFT WHEEL</h4>
+              {/* <h3 className={styles.welcome}>Welcome to Sunny Beach Casino</h3> */}
+              <h4 className={styles.gwheel}>CASINO GIFT WHEEL</h4>
+              <p className={styles.pStyleHome}>
+                This application was created for the purposes of the Guest
+                Relations Department at 'Sunny Beach' Casino
+              </p>
             </div>
             <br />
             <Link
