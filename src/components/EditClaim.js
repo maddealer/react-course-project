@@ -1,17 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useLocation, Navigate, Link } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import "firebase/compat/auth";
-import {
-  collection,
-  getDocs,
-  query,
-  orderBy,
-  limit,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 import styles from "./Login.module.css";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
@@ -64,9 +54,6 @@ export default function EditClaim(props) {
     },
   });
 
-  if (!user) {
-    return <Navigate replace to="/" />;
-  }
   if (redirect) {
     return <Navigate replace to="/data-table" />;
   }

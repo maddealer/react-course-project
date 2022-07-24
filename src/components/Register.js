@@ -1,15 +1,16 @@
 import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { signUp, signingOut } from "../utils/firebase";
+import { signUp } from "../utils/firebase";
 import AuthContext from "../AuthContext";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import styles from "./Login.module.css";
+
 const Register = () => {
   const { user } = useContext(AuthContext);
   console.log("inregister", user);
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [department, setDepartment] = useState("Guest Relations");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -21,7 +22,7 @@ const Register = () => {
       setEmail("");
       setName("");
       setPassword("");
-      const res = await signUp(email, password, name);
+      const res = await signUp(email, password, name, department);
 
       if (res.error) setError(res.error);
     }
@@ -43,7 +44,6 @@ const Register = () => {
           {error ? <div className="auth__error">{error}</div> : null}
           <div className={styles.title}>Welcome</div>
           <div className={styles.subtitle}>Let's create your account!</div>
-
           <div className={styles["input-container ic1"]}>
             <label htmlFor="email" className={styles["placeholder"]}>
               Email
@@ -57,7 +57,39 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+          <div className={styles["input-container ic1"]}>
+            <label htmlFor="name" className={styles["placeholder"]}>
+              Name
+            </label>
+            <input
+              id="name"
+              value={name}
+              className={styles.input}
+              type="text"
+              placeholder=" "
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
 
+          <div
+            style={{ display: "flex", flexDirection: "row" }}
+            className={styles["input-container ic1"]}
+          >
+            <label htmlFor="fruits" className={styles["placeholder"]}>
+              Department
+            </label>{" "}
+            <select
+              id="fruits"
+              name="fruits"
+              defaultValue={department}
+              onChange={(e) => setDepartment(e.target.value)}
+              style={{ marginLeft: "10px" }}
+            >
+              <option>Guest Relations</option>
+              <option>PIT</option>
+              <option>Marketing</option>
+            </select>
+          </div>
           <div className={styles["input-container ic2"]}>
             <label htmlFor="password" className={styles["placeholder"]}>
               Password

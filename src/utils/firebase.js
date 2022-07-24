@@ -21,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 
-const signUp = async (email, password, name) => {
+const signUp = async (email, password, name, department) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -34,6 +34,7 @@ const signUp = async (email, password, name) => {
       uid: user.uid,
       email: user.email,
       name,
+      department,
     });
 
     return true;

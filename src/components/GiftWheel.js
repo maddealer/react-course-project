@@ -71,9 +71,6 @@ function Wheel1() {
     setMustSpin(true);
     setStart(true);
   };
-  if (!user) {
-    return <Navigate replace to="/" />;
-  }
 
   return (
     <>

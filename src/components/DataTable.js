@@ -19,7 +19,6 @@ import {
   updateDoc,
   deleteDoc,
   doc,
-  onSnapshot,
   startAfter,
   limitToLast,
   endBefore,
@@ -290,7 +289,7 @@ export default function DataTable(props) {
             </div>
           </>
         ) : (
-          <Link to="/login">Login first please</Link>
+          <p>loading</p>
         )}
       </ThemeProvider>
     </>

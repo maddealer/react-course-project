@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -13,6 +13,7 @@ import Wheel1 from "./components/GiftWheel";
 import DataTable from "./components/DataTable";
 import Menu from "./Menu";
 import EditClaim from "./components/EditClaim";
+import PrivateRoute from "./PrivateRoute";
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -21,6 +22,7 @@ function App() {
       setCurrentUser(user);
     });
   }, []);
+
   return (
     <div className="appStyle">
       <BrowserRouter>
@@ -30,11 +32,50 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/claim" element={<Claim />} />
-            <Route path="/gift-wheel" element={<Wheel1 />} />
-            <Route path="/data-table" element={<DataTable />} />
-            <Route path="/edit-claim" element={<EditClaim />} />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute isLoggedIn={currentUser}>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/claim"
+              element={
+                <PrivateRoute isLoggedIn={currentUser}>
+                  <Claim />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/gift-wheel"
+              element={
+                <PrivateRoute isLoggedIn={currentUser}>
+                  <Wheel1 />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/data-table"
+              element={
+                <PrivateRoute isLoggedIn={currentUser}>
+                  <DataTable />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/edit-claim"
+              element={
+                <PrivateRoute isLoggedIn={currentUser}>
+                  <EditClaim />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="*"
+              element={<PrivateRoute isLoggedIn={false}></PrivateRoute>}
+            />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

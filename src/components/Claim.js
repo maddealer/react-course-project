@@ -83,11 +83,8 @@ export default function Claim(props) {
     },
   });
 
-  if (!user) {
-    return <Navigate replace to="/" />;
-  }
   if (redirect) {
-    return <Navigate replace to="/dashboard" />;
+    return <Navigate replace to="/data-table" />;
   }
 
   return (

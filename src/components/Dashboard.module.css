@@ -2,8 +2,15 @@
    
     font-size: 1.6em;
     color:rgb(46, 46, 46);
-    margin-bottom:50px;
+    margin-bottom:30px;
     text-shadow: 1px 2px 1px #00000050;
     text-align: center;
 
+}
+.parag{
+    font-size: 1em;
+    color:rgb(46, 46, 46);
+    margin-bottom:30px;
+    text-shadow: 1px 2px 1px #00000050;
+    text-align: center;
 }
