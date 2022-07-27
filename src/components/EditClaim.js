@@ -1,7 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useLocation, Navigate } from "react-router-dom";
 import "firebase/compat/auth";
-import { updateDoc, doc } from "firebase/firestore";
+import {
+  updateDoc,
+  doc,
+  getDoc,
+  query,
+  where,
+  collection,
+} from "firebase/firestore";
 import styles from "./Login.module.css";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
@@ -16,17 +23,36 @@ export default function EditClaim(props) {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [redirect, setRedirect] = useState(false);
+
   useEffect(() => {
     if (user && location.state) {
       setId(location.state.claimId);
       return;
     }
   }, []);
+  useEffect(() => {
+    if (id) getName();
+  }, [id]);
+  const getName = async () => {
+    try {
+      const q = doc(db, "claims", id);
+      console.log(id);
+      const data = await getDoc(q);
+      console.log("here i go again", data.data());
+      setName(data.data().name);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const updateClaim = async (id, name) => {
-    const claimDoc = doc(db, "claims", id);
-    const newFields = { name: name };
-    await updateDoc(claimDoc, newFields);
-    setRedirect(true);
+    try {
+      const claimDoc = doc(db, "claims", id);
+      const newFields = { name: name };
+      await updateDoc(claimDoc, newFields);
+      setRedirect(true);
+    } catch (err) {
+      console.log(err);
+    }
   };
   const handleChangeName = (event) => {
     setName(event.target.value);
@@ -85,7 +111,9 @@ export default function EditClaim(props) {
                   }}
                 >
                   {" "}
-                  <h5 style={{ fontSize: "1.5em" }}>Apply for Gift</h5>
+                  <h5 style={{ fontSize: "1.5em" }}>
+                    Add or Edit Player's Name
+                  </h5>
                 </div>
                 <div className={styles["input-container ic1"]}>
                   <label htmlFor="card" className={styles["placeholder"]}>
@@ -108,7 +136,7 @@ export default function EditClaim(props) {
                   className={styles["submit"]}
                   onClick={handleAddFormSubmit}
                 >
-                  Claim
+                  Add Name
                 </button>
               </div>
             </div>

@@ -89,9 +89,10 @@ function Wheel1() {
               fontWeight: "bold",
               marginTop: "0",
               color: "#fff",
+              fontSize: "1.6em",
             }}
           >
-            Casino Gift Wheel
+            'Canto Bight' Gift Wheel
           </h1>
           <Wheel
             mustStartSpinning={mustSpin}

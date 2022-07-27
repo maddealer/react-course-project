@@ -63,7 +63,7 @@ export default function Home(props) {
               alignItems: "center",
               flexDirection: "column",
               height: "70vh",
-              marginTop: "40px",
+              marginTop: "20px",
             }}
           >
             <div
@@ -78,47 +78,50 @@ export default function Home(props) {
               <h4 className={styles.gwheel}>CASINO GIFT WHEEL</h4>
               <p className={styles.pStyleHome}>
                 This application was created for the purposes of the Guest
-                Relations Department at 'Sunny Beach' Casino
+                Relations Department at 'Canto Bight' Casino
               </p>
             </div>
             <br />
-            <Link
-              to="/login"
-              style={{
-                textDecoration: "none",
-                width: "200px",
-              }}
-            >
-              <Button
-                style={{ position: "inherit", fontWeight: "bold" }}
-                variant="contained"
-                fullWidth={true}
-                color="primary"
+            <div style={{ display: "flex", marginBottom: "15px" }}>
+              {" "}
+              <Link
+                to="/login"
+                style={{
+                  textDecoration: "none",
+                  width: "100px",
+                  marginRight: "30px",
+                }}
               >
-                Login
-              </Button>
-            </Link>
-            <br />
-            <Link
-              to="/register"
-              style={{
-                textDecoration: "none",
-                width: "200px",
-                marginBottom: "50px",
-              }}
-            >
-              <Button
-                style={{ position: "inherit", fontWeight: "bold" }}
-                variant="contained"
-                fullWidth={true}
-                color="secondary"
+                <Button
+                  style={{ position: "inherit", fontWeight: "bold" }}
+                  variant="contained"
+                  fullWidth={true}
+                  color="primary"
+                >
+                  Login
+                </Button>
+              </Link>
+              <Link
+                to="/register"
+                style={{
+                  textDecoration: "none",
+                  width: "100px",
+                }}
               >
-                Register
-              </Button>
-            </Link>
+                <Button
+                  style={{ position: "inherit", fontWeight: "bold" }}
+                  variant="contained"
+                  fullWidth={true}
+                  color="secondary"
+                >
+                  Register
+                </Button>
+              </Link>
+            </div>
+
             <p
               style={{
-                marginBottom: "50px",
+                marginBottom: "20px",
                 fontSize: "1.5em",
                 fontWeight: "bold",
                 color: "#113340",

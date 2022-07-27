@@ -14,6 +14,7 @@ import DataTable from "./components/DataTable";
 import Menu from "./Menu";
 import EditClaim from "./components/EditClaim";
 import PrivateRoute from "./PrivateRoute";
+import Details from "./components/Details";
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -56,14 +57,7 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route
-              path="/data-table"
-              element={
-                <PrivateRoute isLoggedIn={currentUser}>
-                  <DataTable />
-                </PrivateRoute>
-              }
-            />
+            <Route path="/data-table" element={<DataTable />} />
             <Route
               path="/edit-claim"
               element={
@@ -72,6 +66,7 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route path="/details" element={<Details />} />
             <Route
               path="*"
               element={<PrivateRoute isLoggedIn={false}></PrivateRoute>}

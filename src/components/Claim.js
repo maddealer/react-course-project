@@ -21,6 +21,8 @@ export default function Claim(props) {
   const [agreeGDPR, setAgreeGDPR] = useState(false);
   const [error, setError] = useState("");
   const [redirect, setRedirect] = useState(false);
+
+  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   useEffect(() => {
     if (user && location.state) {
       console.log("user", user.email);
@@ -47,28 +49,32 @@ export default function Claim(props) {
   const handleAddFormSubmit = async (e) => {
     e.preventDefault();
 
-    if (email !== "" && card !== "" && agreeGDPR === true) {
-      try {
-        const res = await addDoc(claimsCollectionRef, {
-          card,
-          email,
-          phone,
-          gift,
-          agreeGDPR,
-          name: "",
-          congratulated: "",
-          creator: user.email,
-          createdAt: Date.now(),
-        });
+    if (email !== "" && card !== "" && agreeGDPR === true && phone !== "") {
+      if (emailRegex.test(email)) {
+        try {
+          await addDoc(claimsCollectionRef, {
+            card,
+            email,
+            phone,
+            gift,
+            agreeGDPR,
+            name: "",
+            congratulated: "",
+            creator: user.email,
+            createdAt: Date.now(),
+          });
 
-        setAgreeGDPR(false);
-        setCard("");
-        setEmail("");
-        setPhone("");
-        setRedirect(true);
-      } catch (err) {
-        console.log(err);
-        setError("Something went wrong!");
+          setAgreeGDPR(false);
+          setCard("");
+          setEmail("");
+          setPhone("");
+          setRedirect(true);
+        } catch (err) {
+          console.log(err);
+          setError("Something went wrong!");
+        }
+      } else {
+        alert(`Enter valid email.`);
       }
     } else {
       alert(`All fields please.`);

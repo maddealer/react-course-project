@@ -5,6 +5,7 @@ import { db } from "../utils/firebase";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
+import DetailsIcon from "@mui/icons-material/Details";
 import Button from "@mui/material/Button";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
@@ -170,6 +171,7 @@ export default function DataTable(props) {
   return (
     <>
       <ThemeProvider theme={theme}>
+        {/* logged in view */}
         {user ? (
           <>
             {" "}
@@ -214,13 +216,15 @@ export default function DataTable(props) {
                         </td>
                         <td>{el.name}</td>
                         <td>
+                          <Link
+                            to="/details"
+                            state={{ claimId: el.id }}
+                            style={{ color: "#71b8de" }}
+                          >
+                            <DetailsIcon />
+                          </Link>
                           {el.creator === user.email ? (
                             <>
-                              <DeleteForeverIcon
-                                onClick={() => {
-                                  deleteClaim(el.id);
-                                }}
-                              />
                               <Link
                                 to="/edit-claim"
                                 state={{ claimId: el.id }}
@@ -228,6 +232,11 @@ export default function DataTable(props) {
                               >
                                 <EditIcon />
                               </Link>
+                              <DeleteForeverIcon
+                                onClick={() => {
+                                  deleteClaim(el.id);
+                                }}
+                              />
                             </>
                           ) : null}
                         </td>
@@ -289,7 +298,104 @@ export default function DataTable(props) {
             </div>
           </>
         ) : (
-          <p>loading</p>
+          // visitor view
+
+          <>
+            {" "}
+            <h2>Players DataBase</h2>
+            <div className={styles["table-wrapper"]}>
+              <table className={styles["fl-table"]}>
+                <thead>
+                  <tr>
+                    <th>Email</th>
+                    <th>Gift</th>
+                    <th>Created At</th>
+                    <th>actions</th>
+                  </tr>
+                </thead>
+
+                {list.length > 0 ? (
+                  <tbody>
+                    {list.map((el) => (
+                      <tr key={el.id}>
+                        <td>
+                          {el.email.split("@")[0].charAt(0).toUpperCase() +
+                            el.email.split("@")[0].slice(1)}
+                          @*****
+                        </td>
+                        <td>{el.gift}</td>
+                        <td>
+                          {new Date(el.createdAt).toLocaleTimeString("en-US")}{" "}
+                          on{" "}
+                          {new Date(el.createdAt).toLocaleDateString("en-US")}
+                        </td>
+
+                        <td>
+                          <Link
+                            to="/details"
+                            state={{ claimId: el.id }}
+                            style={{ color: "#71b8de" }}
+                          >
+                            <DetailsIcon />
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                ) : null}
+              </table>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: "15px",
+              }}
+            >
+              {
+                //show previous Button only when we have items
+                page === 1 ? (
+                  ""
+                ) : (
+                  <Button
+                    style={{
+                      position: "inherit",
+                      fontWeight: "bold",
+                      width: "100px",
+                      marginRight: "20px",
+                    }}
+                    variant="contained"
+                    disableRipple
+                    color="primary"
+                    onClick={() => showPrevious({ item: list[0] })}
+                  >
+                    Previous
+                  </Button>
+                )
+              }
+              {
+                //show next Button only when we have items
+                list.length < 5 ? (
+                  ""
+                ) : (
+                  <Button
+                    style={{
+                      position: "inherit",
+                      fontWeight: "bold",
+                      width: "100px",
+                    }}
+                    variant="contained"
+                    disableRipple
+                    color="secondary"
+                    onClick={() => showNext({ item: list[list.length - 1] })}
+                  >
+                    Next
+                  </Button>
+                )
+              }
+            </div>
+          </>
         )}
       </ThemeProvider>
     </>
