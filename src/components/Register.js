@@ -7,7 +7,6 @@ import styles from "./Login.module.css";
 
 const Register = () => {
   const { user } = useContext(AuthContext);
-  console.log("inregister", user);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [department, setDepartment] = useState("Guest Relations");

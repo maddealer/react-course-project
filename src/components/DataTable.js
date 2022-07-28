@@ -72,7 +72,7 @@ export default function DataTable(props) {
       console.log("error ", err);
     }
   };
-
+  //when update 'congratulated' to stay on the same page
   const fetchSameDataAgain = () => {
     try {
       const fetchSameData = async () => {

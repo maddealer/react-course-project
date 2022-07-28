@@ -6,10 +6,9 @@ import "firebase/compat/auth";
 import "./GiftWheel.css";
 import { Wheel } from "react-custom-roulette";
 import Button from "@mui/material/Button";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
-import AuthContext from "../AuthContext";
 
 const data = [
   { id: 0, option: "Coctail" },
@@ -48,8 +47,6 @@ const data = [
 ];
 
 function Wheel1() {
-  const { user } = useContext(AuthContext);
-
   const theme = createTheme({
     palette: {},
   });

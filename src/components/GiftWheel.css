@@ -417,3 +417,20 @@ button:focus{
   }
   
 }
+@media only screen and (max-width: 799px) {
+  /* For mobile phones: */
+  .sc-eCssSg {
+ 
+    width: 60vw !important;
+    height: 60vw !important;
+  }
+  
+  
+  .bhdLno{
+    width: 60vw !important;
+    height: 60vw !important;
+   max-width: 60vw  !important;
+   max-height: 60vw  !important;
+  }
+  
+}
