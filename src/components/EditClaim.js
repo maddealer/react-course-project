@@ -116,6 +116,7 @@ export default function EditClaim(props) {
                     value={name ?? ""}
                     autoComplete="off"
                     placeholder="Players Name"
+                    maxLength="50"
                     className={styles.input}
                     type="text"
                     onChange={handleChangeName}
