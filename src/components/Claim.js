@@ -7,7 +7,7 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
 import { db } from "../utils/firebase";
 import AuthContext from "../AuthContext";
-
+import { claimFormValidator } from "../utils/validators";
 export default function Claim(props) {
   const { user } = useContext(AuthContext);
   const location = useLocation();
@@ -22,7 +22,6 @@ export default function Claim(props) {
   const [error, setError] = useState("");
   const [redirect, setRedirect] = useState(false);
 
-  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   useEffect(() => {
     if (user && location.state) {
       console.log("user", user.email);
@@ -48,36 +47,32 @@ export default function Claim(props) {
 
   const handleAddFormSubmit = async (e) => {
     e.preventDefault();
-
-    if (email !== "" && card !== "" && agreeGDPR === true && phone !== "") {
-      if (emailRegex.test(email)) {
-        try {
-          await addDoc(claimsCollectionRef, {
-            card,
-            email,
-            phone,
-            gift,
-            agreeGDPR,
-            name: "",
-            congratulated: "",
-            creator: user.email,
-            createdAt: Date.now(),
-          });
-
-          setAgreeGDPR(false);
-          setCard("");
-          setEmail("");
-          setPhone("");
-          setRedirect(true);
-        } catch (err) {
-          console.log(err);
-          setError("Something went wrong!");
-        }
-      } else {
-        alert(`Enter valid email.`);
-      }
-    } else {
-      alert(`All fields please.`);
+    const validate = claimFormValidator(card, email, agreeGDPR, phone);
+    if (!validate.status) {
+      setError(validate.msg);
+      return;
+    }
+    try {
+      const res = await addDoc(claimsCollectionRef, {
+        card,
+        email,
+        phone,
+        gift,
+        agreeGDPR,
+        name: "",
+        congratulated: "",
+        creator: user.email,
+        createdAt: Date.now(),
+      });
+      if (res.error) setError(res.error);
+      setAgreeGDPR(false);
+      setCard("");
+      setEmail("");
+      setPhone("");
+      setRedirect(true);
+    } catch (err) {
+      console.log(err);
+      setError("Something went wrong!");
     }
   };
 
@@ -134,6 +129,7 @@ export default function Claim(props) {
                     placeholder="Casino Card Number"
                     className={styles.input}
                     type="text"
+                    maxLength="10"
                     onChange={handleChangeCard}
                     required
                   />
@@ -148,6 +144,7 @@ export default function Claim(props) {
                     type="email"
                     autoComplete="off"
                     placeholder="Enter Your Email"
+                    maxLength="50"
                     value={email ?? ""}
                     onChange={handleChangeEmail}
                     required
@@ -161,11 +158,13 @@ export default function Claim(props) {
                     id="phone "
                     type="text"
                     autoComplete="off"
-                    placeholder="Phone Number Optional"
+                    placeholder="Phone Number"
+                    maxLength="20"
                     value={phone}
                     name="phone"
                     onChange={handleChangePhone}
                     className={styles.input}
+                    required
                   />
                 </div>
                 <div className={styles["input-container ic1"]}>

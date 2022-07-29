@@ -1,14 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useLocation, Navigate } from "react-router-dom";
 import "firebase/compat/auth";
-import {
-  updateDoc,
-  doc,
-  getDoc,
-  query,
-  where,
-  collection,
-} from "firebase/firestore";
+import { updateDoc, doc, getDoc } from "firebase/firestore";
 import styles from "./Login.module.css";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
@@ -36,9 +29,8 @@ export default function EditClaim(props) {
   const getName = async () => {
     try {
       const q = doc(db, "claims", id);
-      console.log(id);
       const data = await getDoc(q);
-      console.log("here i go again", data.data());
+      if (data.error) setError(data.error);
       setName(data.data().name);
     } catch (err) {
       console.log(err);

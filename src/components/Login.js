@@ -1,8 +1,9 @@
 import { useState, useContext } from "react";
 import { signIn } from "../utils/firebase";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import AuthContext from "../AuthContext";
 import { Link } from "react-router-dom";
+import { logFormValidator } from "../utils/validators";
 import styles from "./Login.module.css";
 import "./forms.css";
 const Login = () => {
@@ -13,10 +14,19 @@ const Login = () => {
   const [error, setError] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setEmail("");
-    setPassword("");
-    const res = await signIn(email, password);
-    if (res.error) setError(res.error);
+    const validate = logFormValidator(email, password);
+    if (!validate.status) {
+      setError(validate.msg);
+      return;
+    }
+    try {
+      setEmail("");
+      setPassword("");
+      const res = await signIn(email, password);
+      if (res.error) setError(res.error);
+    } catch (err) {
+      console.log(err);
+    }
   };
   const handleEnter = (e) => {
     if (e.key === "Enter") {
@@ -52,7 +62,8 @@ const Login = () => {
               value={email}
               className={styles.input}
               type="email"
-              placeholder=" "
+              placeholder=""
+              maxLength="50"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -66,7 +77,8 @@ const Login = () => {
               value={password}
               className={styles["input"]}
               type="password"
-              placeholder=" "
+              placeholder=""
+              maxLength="50"
               onChange={(e) => setPassword(e.target.value)}
               onKeyPress={(e) => handleEnter(e)}
             />

@@ -4,7 +4,7 @@ import { signUp } from "../utils/firebase";
 import AuthContext from "../AuthContext";
 import { Navigate } from "react-router-dom";
 import styles from "./Login.module.css";
-
+import { regFormValidator } from "../utils/validators";
 const Register = () => {
   const { user } = useContext(AuthContext);
   const [email, setEmail] = useState("");
@@ -15,15 +15,24 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === "") {
-      setError("Passwords do not match");
-    } else {
+    const validate = regFormValidator(email, name, password);
+    if (!validate.status) {
+      setError(validate.msg);
+      return;
+    }
+    try {
       setEmail("");
       setName("");
       setPassword("");
       const res = await signUp(email, password, name, department);
-
       if (res.error) setError(res.error);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
     }
   };
   if (user) {
@@ -52,8 +61,9 @@ const Register = () => {
               value={email}
               className={styles.input}
               type="email"
-              placeholder=" "
+              placeholder=""
               onChange={(e) => setEmail(e.target.value)}
+              maxLength="50"
             />
           </div>
           <div className={styles["input-container ic1"]}>
@@ -65,7 +75,8 @@ const Register = () => {
               value={name}
               className={styles.input}
               type="text"
-              placeholder=" "
+              placeholder=""
+              maxLength="50"
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -98,8 +109,10 @@ const Register = () => {
               value={password}
               className={styles["input"]}
               type="password"
-              placeholder=" "
+              placeholder=""
+              maxLength="50"
               onChange={(e) => setPassword(e.target.value)}
+              onKeyPress={(e) => handleEnter(e)}
             />
           </div>
           <button
