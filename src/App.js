@@ -15,6 +15,7 @@ import Menu from "./Menu";
 import EditClaim from "./components/EditClaim";
 import PrivateRoute from "./PrivateRoute";
 import Details from "./components/Details";
+import UsersList from "./components/UsersList";
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -38,6 +39,14 @@ function App() {
               element={
                 <PrivateRoute isLoggedIn={currentUser}>
                   <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/users-list"
+              element={
+                <PrivateRoute isLoggedIn={currentUser}>
+                  <UsersList />
                 </PrivateRoute>
               }
             />
