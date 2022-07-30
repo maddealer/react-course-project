@@ -181,6 +181,7 @@ export default function DataTable(props) {
                 <thead>
                   <tr>
                     <th>Email</th>
+                    <th>Card Number</th>
                     <th>Gift</th>
                     <th>Created At</th>
                     <th>Congratulated</th>
@@ -194,6 +195,7 @@ export default function DataTable(props) {
                     {list.map((el) => (
                       <tr key={el.id}>
                         <td>{el.email}</td>
+                        <td>{el.card}</td>
                         <td>{el.gift}</td>
                         <td>
                           {new Date(el.createdAt).toLocaleTimeString("en-US")}{" "}
