@@ -2,7 +2,7 @@
 
 ### Overview
 
-Casino GiftWheel is a PWA, it can be installed on any device, it is responsive, but it's optimized for ipad air tablet.
+Casino GiftWheel is a PWA (Progressive Web App), it can be installed on any device, it is responsive, but it's optimized for ipad air tablet.
 This application was created to collect customer contacts in 'Canto Bight' Casino.
 The application is for internal company use.
 Casino employees provide the gift wheel to our customers, and in order for the player to receive their gift, they must provide an email and phone number.
