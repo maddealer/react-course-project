@@ -56,7 +56,7 @@ export default function DataTable(props) {
       const first = query(
         claimsCollectionRef,
         orderBy("createdAt", "desc"),
-        limit(5)
+        limit(7)
       );
       const documentSnapshots = await getDocs(first);
       let items = [];
@@ -79,7 +79,7 @@ export default function DataTable(props) {
         const same = query(
           claimsCollectionRef,
           orderBy("createdAt", "desc"),
-          limit(5),
+          limit(7),
           startAt(list[0].createdAt)
         );
         const documentSnapshots = await getDocs(same);
@@ -104,7 +104,7 @@ export default function DataTable(props) {
         const next = query(
           claimsCollectionRef,
           orderBy("createdAt", "desc"),
-          limit(5),
+          limit(7),
           startAfter(item.createdAt)
         );
         const documentSnapshots = await getDocs(next);
@@ -130,7 +130,7 @@ export default function DataTable(props) {
           claimsCollectionRef,
           orderBy("createdAt", "desc"),
           endBefore(item.createdAt),
-          limitToLast(5)
+          limitToLast(7)
         );
         const documentSnapshots = await getDocs(prev);
         let items = [];
@@ -279,7 +279,7 @@ export default function DataTable(props) {
               }
               {
                 //show next Button only when we have items
-                list.length < 5 ? (
+                list.length < 7 ? (
                   ""
                 ) : (
                   <Button
@@ -378,7 +378,7 @@ export default function DataTable(props) {
               }
               {
                 //show next Button only when we have items
-                list.length < 5 ? (
+                list.length < 7 ? (
                   ""
                 ) : (
                   <Button
