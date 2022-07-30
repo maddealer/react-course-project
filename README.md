@@ -10,7 +10,7 @@ Later, the employees send a personal greeting email to the customer and mark it 
 
 ### Deployed
 
-The application is deployed on Netlify
+The application is deployed on Netlify.
 Follow the link: [Casino Gift Wheel](https://react-course-gift-wheel.netlify.app/)
 
 ### Installing
