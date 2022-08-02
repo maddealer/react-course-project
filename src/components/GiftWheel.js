@@ -207,7 +207,7 @@ function Wheel1() {
                 >
                   <Button
                     style={{
-                      fontSize: "1em",
+                      fontSize: "0.8em",
                       color: "#fff",
                     }}
                     className="claimBlink"
